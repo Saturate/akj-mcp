@@ -44,15 +44,13 @@ You can test this MCP server directly in the Cloudflare AI Playground:
 - "How can I contact Allan?"
 - "What are Allan's social media profiles?"
 
-## Using with Claude Desktop
+## Usage with MCP Clients
 
-To use this MCP server with Claude Desktop, you'll need to configure it using the `mcp-remote` proxy:
+This MCP server can be used with various MCP-compatible clients. Below are configuration examples for popular tools.
 
-### Prerequisites
-- [Claude Desktop](https://claude.ai/download) installed on your machine
-- Node.js and npm installed
+### Claude Desktop
 
-### Configuration Steps
+Configure Claude Desktop using the `mcp-remote` proxy:
 
 1. Open Claude Desktop
 2. Go to **Settings > Developer > Edit Config**
@@ -72,27 +70,96 @@ To use this MCP server with Claude Desktop, you'll need to configure it using th
 }
 ```
 
-4. Save the configuration file
-5. Restart Claude Desktop
+4. Save the configuration file and restart Claude Desktop
 
-After restarting, Claude will have access to the three tools and can retrieve information about Allan Kimmer Jensen when you ask relevant questions.
+### Claude Code
 
-### Example Usage in Claude Desktop
+Configure Claude Code by adding to your MCP settings:
 
-Once configured, you can interact with Claude naturally:
+1. Open Claude Code settings
+2. Go to **MCP Servers** configuration
+3. Add the server configuration:
+
+```json
+{
+  "mcpServers": {
+    "allan-info": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://akj-mcp.mail-34e.workers.dev/mcp"
+      ]
+    }
+  }
+}
+```
+
+4. Restart Claude Code to activate the connection
+
+### Cursor
+
+Configure Cursor IDE to use this MCP server:
+
+1. Open Cursor Settings
+2. Navigate to **Features > Model Context Protocol**
+3. Add the following configuration:
+
+```json
+{
+  "mcpServers": {
+    "allan-info": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://akj-mcp.mail-34e.workers.dev/mcp"
+      ]
+    }
+  }
+}
+```
+
+4. Restart Cursor to load the MCP server
+
+### Cline (VS Code Extension)
+
+Configure Cline in VS Code:
+
+1. Install the Cline extension from VS Code marketplace
+2. Open VS Code Settings (JSON)
+3. Add to your `settings.json`:
+
+```json
+{
+  "cline.mcpServers": {
+    "allan-info": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://akj-mcp.mail-34e.workers.dev/mcp"
+      ]
+    }
+  }
+}
+```
+
+4. Reload VS Code
+
+### Example Interactions
+
+Once configured in any client, you can interact naturally:
 
 ```
 You: Tell me about Allan Kimmer Jensen
 
-Claude: [Uses get_bio tool to retrieve biographical information]
+AI: [Uses get_bio tool to retrieve biographical information]
 
-You: How can I reach Allan?
+You: How can I contact Allan?
 
-Claude: [Uses get_contact_info tool to get email address]
+AI: [Uses get_contact_info tool to get email and Signal]
 
-You: Does Allan have a GitHub profile?
+You: What are Allan's social media profiles?
 
-Claude: [Uses get_social_links tool to retrieve social media links]
+AI: [Uses get_social_links tool to retrieve LinkedIn, GitHub, and Instagram]
 ```
 
 ## Deployment

@@ -290,8 +290,15 @@ function getHtmlLandingPage(): string {
             </div>
 
             <div class="usage-box">
-                <h3>Claude Desktop</h3>
-                <p>Add to claude_desktop_config.json:</p>
+                <h3>MCP Clients</h3>
+                <p>This server works with various MCP-compatible clients:</p>
+                <ul style="margin: 12px 0 12px 20px; color: #a1a1aa;">
+                    <li>Claude Desktop</li>
+                    <li>Claude Code</li>
+                    <li>Cursor IDE</li>
+                    <li>Cline (VS Code)</li>
+                </ul>
+                <p>Configuration example for Claude Desktop/Code:</p>
                 <div class="code-block">{
   "mcpServers": {
     "allan-info": {
@@ -303,7 +310,7 @@ function getHtmlLandingPage(): string {
     }
   }
 }</div>
-                <p>Restart Claude Desktop after saving.</p>
+                <p>Add this to your client's MCP configuration file and restart. See README for detailed setup instructions for each client.</p>
             </div>
         </div>
 
